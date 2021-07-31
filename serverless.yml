@@ -1,4 +1,4 @@
-service: tateyomi-api-container
+service: tateyomi-api
 
 plugins:
  - serverless-layers
@@ -24,6 +24,8 @@ package:
    - dist/**
  exclude:
    - "**"
+
+# about lambda
 functions:
  index:
    handler: dist/handler.handler
