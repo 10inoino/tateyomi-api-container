@@ -10,39 +10,43 @@ const dynamoDB = new AWS.DynamoDB.DocumentClient();
 @Injectable()
 export class DemoService {
 
-  async createUser(name:string): Promise<any> {
-    const user = {
-      id: uuid(),
-      name: name,
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
-    };
-    try {
-      await dynamoDB
-        .put({
-          TableName: process.env.DYNAMODB_NAME,
-          Item: user,
-        })
-        .promise();
-    } catch (error) {
-      throw new InternalServerErrorException(error);
-    }
-    return user;
+  getDemoMessage(): string {
+   return 'Demo Message';
   }
 
-  async getUserById(id: string): Promise<any> {
-    let user;
-    try {
-      const result = await dynamoDB
-        .get({
-          TableName: process.env.DYNAMODB_NAME,
-          Key: { id },
-        })
-        .promise();
-      user = result.Item;
-    } catch (error) {
-      throw new InternalServerErrorException(error);
-    }
-    return user;
-  }
+  // async createUser(name:string): Promise<any> {
+  //   const user = {
+  //     id: uuid(),
+  //     name: name,
+  //     createdAt: new Date().toISOString(),
+  //     updatedAt: new Date().toISOString(),
+  //   };
+  //   try {
+  //     await dynamoDB
+  //       .put({
+  //         TableName: process.env.DYNAMODB_NAME,
+  //         Item: user,
+  //       })
+  //       .promise();
+  //   } catch (error) {
+  //     throw new InternalServerErrorException(error);
+  //   }
+  //   return user;
+  // }
+
+  // async getUserById(id: string): Promise<any> {
+  //   let user;
+  //   try {
+  //     const result = await dynamoDB
+  //       .get({
+  //         TableName: process.env.DYNAMODB_NAME,
+  //         Key: { id },
+  //       })
+  //       .promise();
+  //     user = result.Item;
+  //   } catch (error) {
+  //     throw new InternalServerErrorException(error);
+  //   }
+  //   return user;
+  // }
 }
