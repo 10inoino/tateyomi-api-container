@@ -14,10 +14,21 @@ provider:
   environment:
     AWS_NODEJS_CONNECTION_REUSE_ENABLED: 1
     LANG: ja_JP.UTF-8
-    DYNAMODB_NAME: TestTable
+    DYNAMODB_NAME: DemoTable
   versionFunctions: false
   deploymentBucket:
     name: tateyomi-api-deploymentbucket
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+      Resource: "arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.DYNAMODB_NAME}*"
+# Lambdaの設定
 
 package:
   individually: true
@@ -25,6 +36,8 @@ package:
     - dist/**
   exclude:
     - "**"
+
+# about lambda
 functions:
   index:
     handler: dist/handler.handler
@@ -37,3 +50,25 @@ functions:
           cors: true
           path: "{proxy+}"
           method: any
+
+# リソースの構築
+resources:
+  Resources:
+    # DynamoDBの構築
+    DynamoDbTable:
+      Type: "AWS::DynamoDB::Table"
+      Properties:
+        # キーの型を指定
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        # キーの種類を指定（ハッシュorレンジキー）
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        # プロビジョニングするキャパシティーユニットの設定
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        # テーブル名の指定
+        TableName: ${self:provider.environment.DYNAMODB_NAME}

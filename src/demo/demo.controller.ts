@@ -12,23 +12,18 @@ import { DemoService } from './demo.service';
 export class DemoController {
   constructor(private readonly demoService: DemoService) {}
   
-  // @Post()
-  // async createUser(@Body() body: any): Promise<any> {
-  //   const user = await this.demoService.createUser(body);
+  @Post()
+  async createUser(@Body() body: any): Promise<any> {
+    const user = await this.demoService.createUser(body);
     
-  //   return { status: true, data: user };
-  // }
-  // @Get(':id')
-  // async getUserById(@Param() { id }: any): Promise<any> {
-  //   const user = await this.demoService.getUserById(id);
-  //   if (!user) {
-  //     throw new NotFoundException(`User with ID "${id}" not found`);
-  //   }
-  //   return { status: true, data: user };
-  // }
-
-  @Get()
-  getDemoMessage(): string {
-    return this.demoService.getDemoMessage();
+    return { status: true, data: user };
+  }
+  @Get(':id')
+  async getUserById(@Param() { id }: any): Promise<any> {
+    const user = await this.demoService.getUserById(id);
+    if (!user) {
+      throw new NotFoundException(`User with ID "${id}" not found`);
+    }
+    return { status: true, data: user };
   }
 }
