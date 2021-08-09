@@ -10,10 +10,10 @@ const dynamoDB = new AWS.DynamoDB.DocumentClient();
 @Injectable()
 export class DemoService {
 
-  async createUser(name:string): Promise<any> {
+  async createUser(dto: any): Promise<any> {
     const user = {
       id: uuid(),
-      name: name,
+      ...dto,
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
     };
