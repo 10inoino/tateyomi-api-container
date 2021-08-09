@@ -14,8 +14,6 @@ export class DemoController {
   
   @Post()
   async createUser(@Body() body: any): Promise<any> {
-    console.log('body: ' + body);
-
     const user = await this.demoService.createUser(body);
     
     return { status: true, data: user };
