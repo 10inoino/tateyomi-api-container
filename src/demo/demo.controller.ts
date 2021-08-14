@@ -7,14 +7,15 @@ import {
   Post,
 } from '@nestjs/common';
 import { DemoService } from './demo.service';
+import { DemoRequestPost } from './demo.request.post';
 
 @Controller('demo')
 export class DemoController {
   constructor(private readonly demoService: DemoService) {}
   
   @Post()
-  async createUser(@Body() body: any): Promise<any> {
-    const user = await this.demoService.createUser(body);
+  async createUser(@Body() body: DemoRequestPost): Promise<any> {
+    const user = await this.demoService.createUser(body.toUser());
     
     return { status: true, data: user };
   }
