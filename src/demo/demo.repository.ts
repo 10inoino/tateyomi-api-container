@@ -1,7 +1,4 @@
-import {
-  Injectable,
-  InternalServerErrorException
-} from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { User } from '../entity/user';
 import { Env } from '../env';
 import { DocumentClient } from '../db/dynamodb.client';
@@ -22,18 +19,9 @@ export class DemoRepository {
   }
 
   async find(id: string): Promise<User> {
-    // TODO:DocumentClientクラスのgetを使う
-    let user;
-    try {
-      const result = await this.db
-        .get({
-          TableName: Env.get('TABLE_NAME'),
-          Key: { id },
-        });
-      user = result;
-    } catch (error) {
-      throw new InternalServerErrorException(error);
-    }
-    return user;
+    return await this.db.get({
+      TableName: Env.get('TABLE_NAME'),
+      Key: { id },
+    });
   }
 }

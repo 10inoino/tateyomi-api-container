@@ -24,7 +24,7 @@ export class DocumentClient {
     return data;
   }
 
-  async get(data: GetItemInput): Promise<Object> {
+  async get(data: GetItemInput): Promise<any> {
     let response;
     try {
       const result = await this.Dynamodb.get(data).promise();
