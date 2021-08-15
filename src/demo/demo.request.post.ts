@@ -1,4 +1,4 @@
-import {User} from '../entity/user'
+import { User } from '../entity/user'
 // バリデーションパイプ追加（バリデーションをかける）
 
 export class DemoRequestPost {
@@ -6,6 +6,8 @@ export class DemoRequestPost {
   todo: string;
   
   toUser():User {
+    // TODO:ID追加
+
     return {
       ...this,
       created: new Date(),
