@@ -1,27 +1,26 @@
 import { Injectable } from '@nestjs/common';
 import { User } from '../entity/user';
 import { Env } from '../env';
-import { DocumentClient } from '../db/dynamodb.client';
+import { DatabaseClientInterface } from '../db/database.client.interface';
 
 @Injectable()
 export class DemoRepository {
 
-  constructor(private readonly db: DocumentClient) {};
+  constructor(private readonly db: DatabaseClientInterface) {};
 
   async save(user: User): Promise<User> {
-    await this.db
-    .put({
+    await this.db.save({
       TableName: Env.get('TABLE_NAME'),
-      Item: user,
+      SaveObject: user,
     });
 
     return user;
   }
 
   async find(id: string): Promise<User> {
-    return await this.db.get({
+    return await this.db.find({
       TableName: Env.get('TABLE_NAME'),
-      Key: { id },
+      FindObject: { id },
     });
   }
 }
