@@ -1,24 +1,19 @@
 import { 
   InternalServerErrorException,
-  NotFoundException
+  NotFoundException,
+  Injectable
 } from '@nestjs/common';
-
-import { 
-  DatabaseClientInterface, 
-  SaveItem, 
-  FindItem 
-} from './database.client.interface';
-import { Injectable } from '@nestjs/common';
-
+import { DatabaseClientInterface } from './database.client.interface';
+import { SaveItemInterface } from './save.item.interface';
+import { FindItemInterface } from './find.item.interface';
+import { BaseEntity } from '../entity/base.entity';
 import * as AWS from 'aws-sdk';
-
-export class BaseEntity {}
 
 @Injectable()
 export class DynamodbClient implements DatabaseClientInterface {
   Dynamodb = new AWS.DynamoDB.DocumentClient();
 
-  async save(data: SaveItem): Promise<SaveItem> {
+  async save(data: SaveItemInterface): Promise<SaveItemInterface> {
     try {
       this.Dynamodb.put({
         TableName: data.TableName,
@@ -30,7 +25,7 @@ export class DynamodbClient implements DatabaseClientInterface {
     return data;
   }
 
-  async find(data: FindItem): Promise<BaseEntity> {
+  async find(data: FindItemInterface): Promise<BaseEntity> {
     try {
       const result = await this.Dynamodb.get({
         TableName: data.TableName,
