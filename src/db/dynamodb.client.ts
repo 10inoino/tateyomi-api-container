@@ -8,11 +8,13 @@ import {
   SaveItem, 
   FindItem 
 } from './database.client.interface';
+import { Injectable } from '@nestjs/common';
 
 import * as AWS from 'aws-sdk';
 
 export class BaseEntity {}
 
+@Injectable()
 export class DynamodbClient implements DatabaseClientInterface {
   Dynamodb = new AWS.DynamoDB.DocumentClient();
 

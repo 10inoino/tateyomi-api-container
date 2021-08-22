@@ -1,9 +1,7 @@
-import { Injectable } from '@nestjs/common';
 import { User } from '../entity/user';
 import { Env } from '../env';
 import { DatabaseClientInterface } from '../db/database.client.interface';
 
-@Injectable()
 export class DemoRepository {
 
   constructor(private readonly db: DatabaseClientInterface) {};
