@@ -1,37 +1,34 @@
-import { InternalServerErrorException } from '@nestjs/common';
+import { 
+  InternalServerErrorException, NotFoundException } from '@nestjs/common';
+import { DatabaseClientInterface, SaveItem, FindItem } from './database.client.interface';
 import * as AWS from 'aws-sdk';
 
-// FIXME:TableNameとItem以外dynamodbへのリクエストが送れなくなっちゃう
-interface PutItemInput {
-  TableName: string;
-  Item: {[key: string]: any};
-}
+export class BaseEntity {}
 
-interface GetItemInput {
-  TableName: string;
-  Key: {[key: string]: any};
-}
-
-export class DocumentClient {
+export class DynamodbClient implements DatabaseClientInterface {
   Dynamodb = new AWS.DynamoDB.DocumentClient();
 
-  async put(data: PutItemInput): Promise<PutItemInput> {
+  async save(data: SaveItem): Promise<SaveItem> {
     try {
-      this.Dynamodb.put(data).promise();
+      this.Dynamodb.put({
+        TableName: data.TableName,
+        Item: data.SaveObject
+      }).promise();
     } catch (error) {
       throw new InternalServerErrorException(error);
     }
     return data;
   }
 
-  async get(data: GetItemInput): Promise<any> {
-    let response;
+  async find(data: FindItem): Promise<BaseEntity> {
     try {
-      const result = await this.Dynamodb.get(data).promise();
-      response = result.Item;
+      const result = await this.Dynamodb.get({
+        TableName: data.TableName,
+        Key: data.FindObject
+      }).promise();
+      return result.Item;
     } catch (error) {
-      throw new InternalServerErrorException(error);
+      throw new NotFoundException(error);
     }
-    return response;
   }
 }
