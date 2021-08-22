@@ -1,6 +1,14 @@
 import { 
-  InternalServerErrorException, NotFoundException } from '@nestjs/common';
-import { DatabaseClientInterface, SaveItem, FindItem } from './database.client.interface';
+  InternalServerErrorException,
+  NotFoundException
+} from '@nestjs/common';
+
+import { 
+  DatabaseClientInterface, 
+  SaveItem, 
+  FindItem 
+} from './database.client.interface';
+
 import * as AWS from 'aws-sdk';
 
 export class BaseEntity {}
