@@ -1,5 +1,5 @@
 import { User } from '../entity/user'
-// バリデーションパイプ追加（バリデーションをかける）
+// TODO:バリデーションパイプ追加（バリデーションをかける）
 
 export class DemoRequestPost {
   name: string;
