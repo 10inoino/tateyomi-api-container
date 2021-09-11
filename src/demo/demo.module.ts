@@ -6,6 +6,12 @@ import { DynamodbClient } from 'src/db/dynamodb.client';
 // TODO:DI周りのドキュメントを読む：https://docs.nestjs.com/fundamentals/custom-providers
 @Module({
   controllers: [DemoController],
-  providers: [DemoService, DynamodbClient]
+  providers: [
+    DemoService,
+    {
+      provide: 'DYNAMODB_CLIENT',
+      useValue: DynamodbClient
+    }
+  ]
 })
 export class DemoModule {}
