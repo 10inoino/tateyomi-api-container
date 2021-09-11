@@ -10,7 +10,7 @@ import { DynamodbClient } from 'src/db/dynamodb.client';
     DemoService,
     {
       provide: 'DYNAMODB_CLIENT',
-      useValue: DynamodbClient
+      useClass: DynamodbClient
     }
   ]
 })
