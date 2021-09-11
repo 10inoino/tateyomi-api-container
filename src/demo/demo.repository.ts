@@ -1,11 +1,16 @@
-import { Injectable } from '@nestjs/common';
 import { User } from '../entity/user';
 import { Env } from '../env';
 import { DatabaseClientInterface } from '../db/database.client.interface';
+import { DynamodbClient } from '../db/dynamodb.client'; 
+import { Inject } from '@nestjs/common';
 
 export class DemoRepository {
+  
+  // こうすると具象に依存してしまう
+  // constructor(private readonly DynamodbClient : DynamodbClient) {};
 
-  constructor(private readonly db: DatabaseClientInterface) {};
+  // 本来はDynamoBD以外でも使うので、こうしたい
+  constructor(@Inject('DYNAMODB_CLIENT') private readonly db : DatabaseClientInterface) {};
 
   async save(user: User): Promise<User> {
     await this.db.save({
