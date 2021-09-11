@@ -1,1 +1,3 @@
-export class BaseEntity {}
+export class BaseEntity {
+  [key: string]: any;
+}
