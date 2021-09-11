@@ -5,7 +5,7 @@ import { DemoRepository } from './demo.repository';
 
 @Injectable()
 export class DemoService {
-  // constructor(private readonly repository: DemoRepository) {}
+  constructor(private readonly repository: DemoRepository) {}
 
   // async createUser(dto: User): Promise<User> {
   //   return await this.repository.save(dto);
