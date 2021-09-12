@@ -10,24 +10,25 @@ export class DemoRepository {
   // constructor(private readonly DynamodbClient : DynamodbClient) {};
 
   // 本来はDynamoBD以外でも使うので、こうしたい
-  constructor(@Inject('DYNAMODB_CLIENT') private readonly db : DatabaseClientInterface) {};
+  constructor(@Inject('DatabaseClientInterface') private readonly db : DatabaseClientInterface) {};
 
-  // async save(user: User): Promise<User> {
-  //   await this.db.save({
-  //     TableName: Env.get('TABLE_NAME'),
-  //     SaveObject: user,
-  //   });
+  async save(user: User): Promise<User> {
+    await this.db.save({
+      TableName: Env.get('TABLE_NAME'),
+      SaveObject: user,
+    });
 
-  //   return user;
-  // }
+    return user;
+  }
 
-  // async find(id: string): Promise<User> {
-  //   return await this.db.find({
-  //     TableName: Env.get('TABLE_NAME'),
-  //     FindObject: { id },
-  //   });
-  // }
+  async find(id: string): Promise<User> {
+    return await this.db.find({
+      TableName: Env.get('TABLE_NAME'),
+      FindObject: { id },
+    });
+  }
 
+  // TODO:後で消す
   hello(): string {
     return this.db.getHello();
   }

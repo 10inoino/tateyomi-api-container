@@ -13,29 +13,29 @@ import * as AWS from 'aws-sdk';
 export class DynamodbClient implements DatabaseClientInterface {
   Dynamodb = new AWS.DynamoDB.DocumentClient();
 
-  // async save(data: SaveItemInterface): Promise<SaveItemInterface> {
-  //   try {
-  //     this.Dynamodb.put({
-  //       TableName: data.TableName,
-  //       Item: data.SaveObject
-  //     }).promise();
-  //   } catch (error) {
-  //     throw new InternalServerErrorException(error);
-  //   }
-  //   return data;
-  // }
+  async save(data: SaveItemInterface): Promise<SaveItemInterface> {
+    try {
+      this.Dynamodb.put({
+        TableName: data.TableName,
+        Item: data.SaveObject
+      }).promise();
+    } catch (error) {
+      throw new InternalServerErrorException(error);
+    }
+    return data;
+  }
 
-  // async find(data: FindItemInterface): Promise<BaseEntity> {
-  //   try {
-  //     const result = await this.Dynamodb.get({
-  //       TableName: data.TableName,
-  //       Key: data.FindObject
-  //     }).promise();
-  //     return result.Item;
-  //   } catch (error) {
-  //     throw new NotFoundException(error);
-  //   }
-  // }
+  async find(data: FindItemInterface): Promise<BaseEntity> {
+    try {
+      const result = await this.Dynamodb.get({
+        TableName: data.TableName,
+        Key: data.FindObject
+      }).promise();
+      return result.Item;
+    } catch (error) {
+      throw new NotFoundException(error);
+    }
+  }
 
   getHello(): string {
     return 'I am dynamodb client!';

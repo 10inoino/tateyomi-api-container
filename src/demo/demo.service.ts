@@ -7,13 +7,13 @@ import { DemoRepository } from './demo.repository';
 export class DemoService {
   constructor(private readonly repository: DemoRepository) {}
 
-  // async createUser(dto: User): Promise<User> {
-  //   return await this.repository.save(dto);
-  // }
+  async createUser(dto: User): Promise<User> {
+    return await this.repository.save(dto);
+  }
 
-  // async getUserById(id: string): Promise<User> {
-  //   return await this.repository.find(id);
-  // }
+  async getUserById(id: string): Promise<User> {
+    return await this.repository.find(id);
+  }
 
   getHello(): string {
     return this.repository.hello();

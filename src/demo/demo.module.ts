@@ -5,11 +5,11 @@ import { DynamodbClient } from 'src/db/dynamodb.client';
 
 // TODO:DI周りのドキュメントを読む：https://docs.nestjs.com/fundamentals/custom-providers
 @Module({
-  controllers: [DemoController],
+  controllers: [DemoController, ],
   providers: [
     DemoService,
     {
-      provide: 'DYNAMODB_CLIENT',
+      provide: 'DatabaseClientInterface',
       useClass: DynamodbClient
     }
   ]
