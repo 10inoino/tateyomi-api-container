@@ -16,6 +16,6 @@ export class DemoService {
   // }
 
   getHello(): string {
-    return 'I am demo!';
+    return this.repository.hello();
   }
 }
