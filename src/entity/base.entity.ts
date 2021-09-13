@@ -1,3 +1,4 @@
 export class BaseEntity {
-  [key: string]: any;
+  // TODO:UserEntityが継承できる形に変更
+  [key: string]: any
 }
