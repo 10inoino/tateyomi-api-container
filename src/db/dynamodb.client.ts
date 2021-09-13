@@ -31,6 +31,8 @@ export class DynamodbClient implements DatabaseClientInterface {
         TableName: data.TableName,
         Key: data.FindObject
       }).promise();
+
+      // TODO:クラストランスフォーマーが必要
       return result.Item;
     } catch (error) {
       throw new NotFoundException(error);
