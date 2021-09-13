@@ -2,15 +2,18 @@ import { Module } from '@nestjs/common';
 import { DemoService } from './demo.service';
 import { DemoController } from './demo.controller';
 import { DynamodbClient } from 'src/db/dynamodb.client';
+import { DATABASE_CLIENT } from 'src/db/database.client.interface'
+import { DemoRepository } from './demo.repository';
 
 // TODO:DI周りのドキュメントを読む：https://docs.nestjs.com/fundamentals/custom-providers
 @Module({
-  controllers: [DemoController, ],
+  controllers: [DemoController],
   providers: [
     DemoService,
+    DemoRepository,
     {
-      provide: 'DatabaseClientInterface',
-      useClass: DynamodbClient
+      useClass: DynamodbClient,
+      provide: DATABASE_CLIENT
     }
   ]
 })
