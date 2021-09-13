@@ -1,7 +1,8 @@
-export class User {
+import { BaseEntity } from "./base.entity";
+
+export class User extends BaseEntity {
   name: string;
   todo: string;
-  created: Date;
 
   // TODO:ID追加
 }
