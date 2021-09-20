@@ -4,6 +4,7 @@ import { User } from '../entity/user'
 export class DemoRequestPost {
   name: string;
   todo: string;
+  id: string;
   
   toUser():User {
     // TODO:ID追加
@@ -11,6 +12,7 @@ export class DemoRequestPost {
     return {
       ...this,
       created: new Date(),
+      updated: new Date()
     };
   }
 }
