@@ -8,6 +8,7 @@ import { SaveItemInterface } from './save.item.interface';
 import { FindItemInterface } from './find.item.interface';
 import { BaseEntity } from '../entity/base.entity';
 import * as AWS from 'aws-sdk';
+import { plainToClass } from 'class-transformer';
 
 @Injectable()
 export class DynamodbClient implements DatabaseClientInterface {
@@ -32,8 +33,8 @@ export class DynamodbClient implements DatabaseClientInterface {
         Key: data.FindObject
       }).promise();
 
-      // TODO:クラストランスフォーマーが必要
-      return result.Item;
+      // class-transformerを使って型変換
+      return plainToClass(BaseEntity, result)
     } catch (error) {
       throw new NotFoundException(error);
     }
