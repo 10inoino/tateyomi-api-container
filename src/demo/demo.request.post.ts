@@ -1,15 +1,14 @@
 import { IsString } from 'class-validator';
 import { User } from '../entity/user';
-// TODO:バリデーションパイプ追加（バリデーションをかける）
 
 export class DemoRequestPost {
-  // @IsString()
+  @IsString()
   name: string;
 
-  // @IsString()
+  @IsString()
   todo: string;
 
-  // @IsString()
+  @IsString()
   id: string;
   
   toUser():User {
