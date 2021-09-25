@@ -15,9 +15,10 @@ export class DemoController {
   
   @Post()
   async createUser(@Body() body: DemoRequestPost): Promise<any> {
-    const user = await this.demoService.createUser(body.toUser());
+    // const user = await this.demoService.createUser(body.toUser());
     
-    return { status: true, data: user };
+    // return { status: true, data: user };
+    return body.name + body.todo + body.id;
   }
   
   @Get(':id')
