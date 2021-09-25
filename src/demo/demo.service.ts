@@ -13,9 +13,4 @@ export class DemoService {
   async getUserById(id: string): Promise<User> {
     return await this.repository.find(id);
   }
-
-  // TODO:後で消す
-  getHello(): string {
-    return this.repository.hello();
-  }
 }

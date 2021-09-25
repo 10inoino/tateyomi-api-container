@@ -39,8 +39,4 @@ export class DynamodbClient implements DatabaseClientInterface {
       throw new NotFoundException(error);
     }
   }
-
-  getHello(): string {
-    return 'I am dynamodb client!';
-  }
 }

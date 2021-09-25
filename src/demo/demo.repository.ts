@@ -24,9 +24,4 @@ export class DemoRepository {
       FindObject: { id },
     });
   }
-
-  // TODO:後で消す
-  hello(): string {
-    return this.db.getHello();
-  }
 }

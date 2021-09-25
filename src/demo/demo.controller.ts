@@ -20,17 +20,12 @@ export class DemoController {
     return { status: true, data: user };
   }
   
-  // @Get(':id')
-  // async getUserById(@Param() id : string ): Promise<any> {
-  //   const user = await this.demoService.getUserById(id);
-  //   if (!user) {
-  //     throw new NotFoundException(`User with ID "${id}" not found`);
-  //   }
-  //   return { status: true, data: user };
-  // }
-
-  @Get('hello')
-  getHello(): string {
-    return this.demoService.getHello();
-  }  
+  @Get(':id')
+  async getUserById(@Param() id : string ): Promise<any> {
+    const user = await this.demoService.getUserById(id);
+    if (!user) {
+      throw new NotFoundException(`User with ID "${id}" not found`);
+    }
+    return { status: true, data: user };
+  }
 }
