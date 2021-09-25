@@ -1,7 +1,10 @@
+org: 10inoino
+app: tateyomi-api
 service: tateyomi-api
 
 plugins:
   - serverless-layers
+  - serverless-offline
 
 provider:
   name: aws
