@@ -6,7 +6,6 @@ plugins:
   - serverless-layers
   - serverless-offline
   - serverless-dynamodb-local
-  - serverless-offline
 
 provider:
   name: aws
@@ -77,3 +76,17 @@ resources:
           WriteCapacityUnits: 1
         # テーブル名の指定
         TableName: ${self:provider.environment.TABLE_NAME}
+
+custom:
+  dynamodb:
+    stages:
+      - dev
+    start:
+      inMemory: true
+      migrate: true
+      seed: true
+    seed:
+      development:
+        sources:
+          - table: ${self:provider.environment.TABLE_NAME}
+            sources: [./migrations/demoData.json]
