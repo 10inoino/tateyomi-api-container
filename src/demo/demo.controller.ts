@@ -15,10 +15,13 @@ export class DemoController {
   
   @Post()
   async createUser(@Body() body: DemoRequestPost): Promise<any> {
+
+    // TODO:これ以外の方法はないの？
+    const RequestDto = new DemoRequestPost(body.name, body.todo, body.id);
     // const user = await this.demoService.createUser(body.toUser());
     
     // return { status: true, data: user };
-    return body.name + body.todo + body.id;
+    return RequestDto.toUser();
   }
   
   @Get(':id')

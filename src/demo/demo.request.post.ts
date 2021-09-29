@@ -10,10 +10,14 @@ export class DemoRequestPost {
 
   @IsString()
   id: string;
+
+  constructor(name, todo, id){
+    this.name = name;
+    this.todo = todo;
+    this.id = id;
+  }
   
   toUser():User {
-    // TODO:ID追加
-
     return {
       ...this,
       created: new Date(),
